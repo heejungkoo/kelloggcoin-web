@@ -4,20 +4,25 @@
 
 <ol>
   <% for transaction in @transactions %>
-    <li>
-      From: <%= transaction["from_user_id"] %>, 
-      To: <%= transaction["to_user_id"]%>, 
-      Amount: <%= transaction["amount"]%>
-    </li>
+    <% if transaction["from_user_id"]%>
+      <li>
+       <%= transaction["amount"]%> KC from
+       <%= User.find_by("id" => transaction["from_user_id"])["name"] %> to 
+       <%= User.find_by("id" => transaction["to_user_id"])["name"] %>
+     </li>
+    <% else %>
+     <li>
+        Initial coin offering: <%= transaction["amount"]%> KC to 
+        <%= User.find_by("id" => transaction["to_user_id"])["name"] %>
+     </li>
+    <% end %>
   <% end %>
 </ol>
 
 <!-- Step 2: Calculate and display the balances -->
 
-<%
-for user in @users
-%>
-<p>Balance for <%= user["name"]%>: <%= @balances[user["id"]]%>KC </p>
+<% for user in @users %>
+  <p>Balance for <%= user["name"]%>: <%= @balances[user["id"]]%>KC</p>
 <% end %>
 
 <!-- 
