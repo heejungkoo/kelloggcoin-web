@@ -2,7 +2,23 @@
 
 <!-- Step 1: List all transactions, starting with the ICO -->
 
+<ol>
+  <% for transaction in @transactions %>
+    <li>
+      From: <%= transaction["from_user_id"] %>, 
+      To: <%= transaction["to_user_id"]%>, 
+      Amount: <%= transaction["amount"]%>
+    </li>
+  <% end %>
+</ol>
+
 <!-- Step 2: Calculate and display the balances -->
+
+<%
+for user in @users
+%>
+<p>Balance for <%= user["name"]%>: <%= @balances[user["id"]]%>KC </p>
+<% end %>
 
 <!-- 
 Expected balances:
